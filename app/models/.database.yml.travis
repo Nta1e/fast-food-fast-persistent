@@ -1,0 +1,5 @@
+postgresql:
+  adapter: postgresql
+  database: fastfoodfast
+  username: grey
+  password: Grey

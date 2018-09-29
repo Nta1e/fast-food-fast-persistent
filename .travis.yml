@@ -4,6 +4,9 @@ python:
 cache: pip
 install:
   - pip install -r requirements.txt
+before_script:
+  - psql -c 'create database fastfoodfast;' -U postgres
+  - cp app/models/database.yml.travis app/models/database.yml
 script:
   - nosetests -v --with-coverage --cover-package=app
 after_success:
