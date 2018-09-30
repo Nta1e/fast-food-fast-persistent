@@ -16,7 +16,7 @@ class RegistrationTestCase(unittest.TestCase):
                 "email": "Grey@admin.com",
                 "password": "Sean123",
                 "confirm_password": "Sean123",
-                "admin": "True"
+                "role": "admin"
             },
             "user": {
                 "username": "West",
