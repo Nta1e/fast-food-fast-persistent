@@ -1,0 +1,15 @@
+language: python
+python:
+  - '3.6'
+cache: pip
+install:
+  - pip install -r requirements.txt
+services:
+  - postgresql
+before_script:
+  - psql -c "CREATE USER grey WITH PASSWORD 'Grey';" -U postgres
+  - psql -c 'create database fastfoodfast;' -U postgres
+script:
+  - nosetests -v --with-coverage --cover-package=app
+after_success:
+  - coveralls
