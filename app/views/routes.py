@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, Blueprint
 from ..models.models import Users, get_all_users, get_user_by_id, update_admin_status
-from ..controllers import registration_controller
+from ..controllers import registration_controller, login_controller
 from flask_jwt_extended import jwt_required, get_jwt_identity
 JSON_MIME_TYPE = 'application/json'
 
@@ -15,3 +15,11 @@ def signup():
     if request.content_type != JSON_MIME_TYPE:
         return jsonify({"Error": "Invalid content_type"}), 400
     return registration_controller.register_user()
+
+
+@auth.route("/login", methods=['POST'])
+def login():
+    """This route handles user login"""
+    if request.content_type != JSON_MIME_TYPE:
+        return jsonify({"Error": "Invalid content_type"}), 400
+    return login_controller.signin()
