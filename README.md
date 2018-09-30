@@ -1,6 +1,6 @@
 # Fast-Food-Fast API
-[![Build Status](https://travis-ci.org/NtaleShadik/fast-food-fast-c3.svg?branch=ft-add-meal-160787959)](https://travis-ci.org/NtaleShadik/fast-food-fast-c3)
-[![Coverage Status](https://coveralls.io/repos/github/NtaleShadik/fast-food-fast-c3/badge.svg?branch=ft-add-meal-160787959)](https://coveralls.io/github/NtaleShadik/fast-food-fast-c3?branch=ft-add-meal-160787959)
+[![Build Status](https://travis-ci.org/NtaleShadik/fast-food-fast-c3.svg?branch=ft-get-menu-160787899)](https://travis-ci.org/NtaleShadik/fast-food-fast-c3)
+[![Coverage Status](https://coveralls.io/repos/github/NtaleShadik/fast-food-fast-c3/badge.svg?branch=ft-get-menu-160787899)](https://coveralls.io/github/NtaleShadik/fast-food-fast-c3?branch=ft-get-menu-160787899)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 ## Description
 Fast-Food-Fast is a food delivery service app for a restaurant.
@@ -15,4 +15,5 @@ Fast-Food-Fast is a food delivery service app for a restaurant.
 | *POST* | ```/api/v2/admin/menu``` | _Add meal to menu_
 | *PUT* | ```/api/v2/admin/menu/<meal_id>``` | _Edit menu_|
 | *DELETE* | ```/api/v2/admin/menu/<meal_id>``` | _Delete meal_|
+| *GET* | ```/api/v2/users/menu``` | _view menu_|
 
