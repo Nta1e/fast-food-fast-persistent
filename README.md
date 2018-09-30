@@ -15,4 +15,5 @@ Fast-Food-Fast is a food delivery service app for a restaurant.
 | *POST* | ```/api/v2/admin/menu``` | _Add meal to menu_
 | *PUT* | ```/api/v2/admin/menu/<meal_id>``` | _Edit menu_|
 | *DELETE* | ```/api/v2/admin/menu/<meal_id>``` | _Delete meal_|
+| *GET* | ```/api/v2/users/menu``` | _view menu_|
 

@@ -57,3 +57,18 @@ def edit_meal(meal_id):
 def delete_meal(meal_id):
     '''This route handles the deleting of a meal option'''
     return menu_controller.remove_meal(meal_id)
+
+
+@admin.route("/menu", methods=['GET'])
+@admin_required
+def view_menu():
+    menu = get_menu()
+    return jsonify({"menu": menu}), 200
+
+
+@users.route("/menu", methods=['GET'])
+@jwt_required
+def see_menu():
+    """This endpoint handles the viewing of the available menu by the user"""
+    menu = get_menu()
+    return jsonify({"menu": menu}), 200
