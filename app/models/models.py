@@ -10,27 +10,27 @@ db = Database(app)
 
 class Users:
 
-    def __init__(self, username, email, password, admin):
+    def __init__(self, username, email, password, role):
         self.username = username
         self.email = email
         self.password = password
-        self.admin = admin
+        self.role = role
 
     def create_user(self):
-        db.cur.execute("""INSERT INTO users( username, email, password, admin)
+        db.cur.execute("""INSERT INTO users( username, email, password, role)
                              VALUES(%s,%s,%s,%s)""",
                        (
                            self.username,
                            self.email,
                            self.password,
-                           self.admin
+                           self.role
                        )
                        )
         db.conn.commit()
 
 
 def get_all_users():
-    db.cur.execute("""SELECT id, username, email, admin FROM users""")
+    db.cur.execute("""SELECT id, username, email, role FROM users""")
     db.conn.commit()
     all_users = db.cur.fetchall()
     return all_users
@@ -56,7 +56,7 @@ def get_username(user_id):
 
 
 def get_admin_status():
-    db.cur.execute("""SELECT admin FROM users""")
+    db.cur.execute("""SELECT role FROM users""")
     db.conn.commit()
     admin_status = db.cur.fetchall()
     return admin_status
@@ -64,7 +64,7 @@ def get_admin_status():
 
 def update_admin_status(user_id):
     db.cur.execute(
-        """ UPDATE users SET  admin= 'True' WHERE id = (%s) """, (user_id,))
+        """ UPDATE users SET  role= 'admin' WHERE id = (%s) """, (user_id,))
     db.conn.commit()
 
 
@@ -110,7 +110,8 @@ def get_meal_by_id(meal_id):
 
 
 def delete_meal(meal_id):
-    db.cur.execute("DELETE FROM menu WHERE meal_id = (%s)", (meal_id,))
+    db.cur.execute(
+        "DELETE FROM menu WHERE meal_id = (%s)", (meal_id,))
     db.conn.commit()
     db.cur.execute("DELETE FROM menu WHERE meal_id = (%s)", (meal_id,))
     db.conn.commit()
@@ -219,14 +220,14 @@ def initialize():
             username VARCHAR(255),
             email VARCHAR(255),
             password VARCHAR(255),
-            admin BOOLEAN DEFAULT false
+            role VARCHAR(255)
             )
             """)
 
     db.query("""CREATE TABLE menu(
             meal_id serial PRIMARY KEY,
             menu_item VARCHAR(255),
-            price VARCHAR(255)
+            price INTEGER
         )
         """)
 

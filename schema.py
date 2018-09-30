@@ -15,14 +15,14 @@ def main():
             username VARCHAR(255),
             email VARCHAR(255),
             password VARCHAR(255),
-            admin BOOLEAN DEFAULT false
+            role VARCHAR(255)
             )
             """)
 
     db.query("""CREATE TABLE menu(
             meal_id serial PRIMARY KEY,
             menu_item VARCHAR(255),
-            price VARCHAR(255)
+            price INTEGER
         )
         """)
 
