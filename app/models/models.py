@@ -76,7 +76,7 @@ class Menu:
 
     def add_item(self):
         db.cur.execute(
-            """WITH insert_item AS(INSERT INTO menu(menu_item, price) VALUES (%s,%s) RETURNING meal_id)""",
+            """INSERT INTO menu(menu_item, price) VALUES (%s,%s)""",
             (
                 self.menu_item,
                 self.price
@@ -127,9 +127,15 @@ class Orders:
 
     def create_order(self):
         db.cur.execute(
-            """INSERT INTO orders(user_id, menu_id, order_made, location, comment, made_by) VALUES (%s, SELECT meal_id FROM insert_item, %s, %s, %s)""",
+            "SELECT meal_id FROM menu WHERE menu_item = (%s)", (self.order_made,))
+        db.conn.commit()
+        menu_id = db.cur.fetchone()
+
+        db.cur.execute(
+            """INSERT INTO orders(user_id, menu_id, order_made, location, comment, made_by) VALUES (%s,%s,%s, %s, %s, %s)""",
             (
                 self.user_id,
+                menu_id,
                 self.order_made,
                 self.location,
                 self.comment,

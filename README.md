@@ -10,3 +10,5 @@ Fast-Food-Fast is a food delivery service app for a restaurant.
 | REQUEST | ROUTE | FUNCTIONALITY |
 | ------- | ----- | ------------- |
 | *POST* | ```/api/v2/auth/signup``` | _Register new user_|
+| *POST* | ```/api/v2/auth/login``` | _user login_|
+
