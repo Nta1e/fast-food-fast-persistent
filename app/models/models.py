@@ -109,6 +109,18 @@ def get_meal_by_id(meal_id):
     return one_meal
 
 
+def get_menu_item(item):
+    db.cur.execute("""SELECT * FROM menu WHERE menu_item = (%s)""", (item,))
+    db.conn.commit()
+    item = db.cur.fetchone()
+    return item
+
+
+def get_meal(item):
+    menu_item = get_menu_item(item)
+    return menu_item["menu_item"]
+
+
 def delete_meal(meal_id):
     db.cur.execute(
         "DELETE FROM menu WHERE meal_id = (%s)", (meal_id,))
@@ -117,10 +129,16 @@ def delete_meal(meal_id):
     db.conn.commit()
 
 
+def get_meal_id(order):
+    meal = get_menu_item(order)
+    return meal["meal_id"]
+
+
 class Orders:
 
-    def __init__(self, user_id, order_made, location, comment, made_by):
+    def __init__(self, user_id, menu_id, order_made, location, comment, made_by):
         self.user_id = user_id
+        self.menu_id = menu_id
         self.order_made = order_made
         self.location = location
         self.comment = comment
@@ -128,15 +146,10 @@ class Orders:
 
     def create_order(self):
         db.cur.execute(
-            "SELECT meal_id FROM menu WHERE menu_item = (%s)", (self.order_made,))
-        db.conn.commit()
-        menu_id = db.cur.fetchone()
-
-        db.cur.execute(
-            """INSERT INTO orders(user_id, menu_id, order_made, location, comment, made_by) VALUES (%s,%s,%s, %s, %s, %s)""",
+            """INSERT INTO orders(user_id, menu_id, order_made, location, comment, made_by) VALUES (%s,%s,%s,%s,%s,%s)""",
             (
                 self.user_id,
-                menu_id,
+                self.menu_id,
                 self.order_made,
                 self.location,
                 self.comment,

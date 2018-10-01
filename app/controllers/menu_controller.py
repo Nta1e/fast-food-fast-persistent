@@ -85,7 +85,7 @@ def admin_required(f):
         user_id = get_jwt_identity()
         client = get_user_by_id(user_id)
         if client["role"] == "user":
-            return jsonify(msg='Admins only!'), 403
+            return jsonify(msg='This url can only be accessed by an admin'), 403
         else:
             return f(*args, **kwargs)
     return wrapper
