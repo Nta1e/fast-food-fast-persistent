@@ -87,3 +87,9 @@ class OrdersTestCase(unittest.TestCase):
         res = self.client.post('api/v2/users/orders', data=json.dumps(
             self.data["wrong_order"]), headers=self.auth_header_2, content_type='application/json')
         self.assertEqual(res.status_code, 400)
+
+    def test_user_can_get_his_orders(self):
+        '''This tests whether the user can get all the orders made by him'''
+        res = self.client.get(
+            'api/v2/users/orders', headers=self.auth_header_2, content_type='application/json')
+        self.assertEqual(res.status_code, 200)
