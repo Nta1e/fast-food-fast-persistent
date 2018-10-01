@@ -53,7 +53,7 @@ class LoginTestCase(unittest.TestCase):
         self.assertTrue(b'password incorrect!', res.data)
 
     def test_unknown_user_cannot_login(self):
-        '''This tests whether an unknown user cannot signup'''
+        '''This tests whether an unknown user cannot login'''
         res = self.client.post(
             '/api/v2/auth/login', data=json.dumps(self.data["unknown"]), content_type='application/json')
         self.assertEqual(res.status_code, 400)

@@ -159,7 +159,7 @@ class Orders:
         db.conn.commit()
 
 
-def get_all_orders():
+def get_orders():
     db.cur.execute(
         """SELECT id, made_by, order_made, location, comment, status, order_date FROM orders""")
     db.conn.commit()
