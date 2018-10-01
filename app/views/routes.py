@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, Blueprint
 from ..models.models import (
-    Users, get_all_users, get_user_by_id, update_admin_status, get_menu, get_username, get_user_orders)
+    Users, get_all_users, get_user_by_id, update_admin_status, get_menu, get_username, get_user_orders, get_orders)
 from ..controllers import (registration_controller,
                            login_controller, menu_controller, orders_controller)
 from ..controllers.menu_controller import admin_required
@@ -53,7 +53,7 @@ def edit_meal(meal_id):
     return menu_controller.update_meal_option(meal_id)
 
 
-@admin.route("/menu/<int:meal_id>", methods=['DELETE'])
+@admin.route("/menu/<int:meal_id>/delete", methods=['DELETE'])
 @admin_required
 def delete_meal(meal_id):
     '''This route handles the deleting of a meal option'''
@@ -94,3 +94,11 @@ def view_orders():
     username = get_username(user_id)
     user_orders = get_user_orders(username)
     return jsonify({"Your orders": user_orders}), 200
+
+
+@admin.route("/orders", methods=['GET'])
+@admin_required
+def get_all_orders():
+    '''This endpoint returns all the orders made'''
+    all_orders = get_orders()
+    return jsonify({"orders": all_orders}), 200
