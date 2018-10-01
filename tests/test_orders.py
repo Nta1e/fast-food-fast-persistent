@@ -99,3 +99,11 @@ class OrdersTestCase(unittest.TestCase):
         res = self.client.get(
             '/api/v2/admin/orders', headers=self.auth_header, content_type='application/json')
         self.assertEqual(res.status_code, 200)
+
+    def test_admin_can_get_order_by_id(self):
+        '''This tests whether the admin can get an order by id'''
+        res = self.client.post('api/v2/users/orders', data=json.dumps(
+            self.data["order"]), headers=self.auth_header_2, content_type='application/json')
+        res = self.client.get(
+            '/api/v2/admin/orders', headers=self.auth_header, content_type='application/json')
+        self.assertEqual(res.status_code, 200)

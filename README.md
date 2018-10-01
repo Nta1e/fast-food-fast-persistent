@@ -1,6 +1,6 @@
 # Fast-Food-Fast API
-[![Build Status](https://travis-ci.org/NtaleShadik/fast-food-fast-c3.svg?branch=ft-get-all-160787357)](https://travis-ci.org/NtaleShadik/fast-food-fast-c3)
-[![Coverage Status](https://coveralls.io/repos/github/NtaleShadik/fast-food-fast-c3/badge.svg?branch=ft-get-all-160787357)](https://coveralls.io/github/NtaleShadik/fast-food-fast-c3?branch=ft-get-all-160787357)
+[![Build Status](https://travis-ci.org/NtaleShadik/fast-food-fast-c3.svg?branch=ft-get-one-160787506)](https://travis-ci.org/NtaleShadik/fast-food-fast-c3)
+[![Coverage Status](https://coveralls.io/repos/github/NtaleShadik/fast-food-fast-c3/badge.svg?branch=ft-get-one-160787506)](https://coveralls.io/github/NtaleShadik/fast-food-fast-c3?branch=ft-get-one-160787506)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 ## Description
 Fast-Food-Fast is a food delivery service app for a restaurant.
@@ -19,4 +19,5 @@ Fast-Food-Fast is a food delivery service app for a restaurant.
 | *POST* | ```/api/v2/users/orders``` | _place an order for food_|
 | *GET* | ```/api/v2/users/orders``` | _Get user orders_|
 | *GET* | ```/api/v2/admin/orders``` | _Get all orders_|
+| *GET* | ```/api/v2/admin/orders/<order_id>``` | _Get one order_|
 
