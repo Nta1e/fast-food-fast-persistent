@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, Blueprint
 from ..models.models import (
-    Users, get_all_users, get_user_by_id, update_admin_status, get_menu, get_username)
+    Users, get_all_users, get_user_by_id, update_admin_status, get_menu, get_username, get_user_orders)
 from ..controllers import (registration_controller,
                            login_controller, menu_controller, orders_controller)
 from ..controllers.menu_controller import admin_required
@@ -84,3 +84,13 @@ def place_order():
     user_id = get_jwt_identity()
     username = get_username(user_id)
     return orders_controller.make_order(username)
+
+
+@users.route("/orders", methods=['GET'])
+@jwt_required
+def view_orders():
+    '''This endpoint handles the viewing of user orders'''
+    user_id = get_jwt_identity()
+    username = get_username(user_id)
+    user_orders = get_user_orders(username)
+    return jsonify({"Your orders": user_orders}), 200
