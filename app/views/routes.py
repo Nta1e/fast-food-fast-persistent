@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, Blueprint
 from ..models.models import (
-    Users, get_all_users, get_user_by_id, update_admin_status, get_menu, get_username, get_user_orders, get_orders)
+    Users, get_all_users, get_user_by_id, update_admin_status, get_menu, get_username, get_user_orders,
+    get_orders, get_order_by_id)
 from ..controllers import (registration_controller,
                            login_controller, menu_controller, orders_controller)
 from ..controllers.menu_controller import admin_required
@@ -102,3 +103,11 @@ def get_all_orders():
     '''This endpoint returns all the orders made'''
     all_orders = get_orders()
     return jsonify({"orders": all_orders}), 200
+
+
+@admin.route("/orders/<int:order_id>", methods=['GET'])
+@admin_required
+def get_one_order(order_id):
+    '''This endpoint returns one order'''
+    one_order = get_order_by_id(order_id)
+    return jsonify({"order": one_order}), 200
