@@ -1,6 +1,7 @@
 # Fast-Food-Fast API
 [![Build Status](https://travis-ci.org/NtaleShadik/fast-food-fast-c3.svg?branch=develop)](https://travis-ci.org/NtaleShadik/fast-food-fast-c3)
 [![Coverage Status](https://coveralls.io/repos/github/NtaleShadik/fast-food-fast-c3/badge.svg?branch=develop)](https://coveralls.io/github/NtaleShadik/fast-food-fast-c3?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7646572a208b37bf453d/maintainability)](https://codeclimate.com/github/NtaleShadik/fast-food-fast-c3/maintainability)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 ## Description
 Fast-Food-Fast is a food delivery service app for a restaurant.
