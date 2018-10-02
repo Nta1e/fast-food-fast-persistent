@@ -9,6 +9,7 @@ db = Database(app)
 
 
 class Users:
+    '''This class handles the storing of user credentials in the database'''
 
     def __init__(self, username, email, password, role):
         self.username = username
@@ -69,6 +70,7 @@ def update_admin_status(user_id):
 
 
 class Menu:
+    '''This class handles the storing of menu items into the database'''
 
     def __init__(self, menu_item, price):
         self.menu_item = menu_item
@@ -135,6 +137,7 @@ def get_meal_id(order):
 
 
 class Orders:
+    '''This class handles the storing of user orders into the database'''
 
     def __init__(self, user_id, menu_id, order_made, location, comment, made_by):
         self.user_id = user_id
@@ -200,21 +203,6 @@ def insert_response(status, order_id):
         db.conn.commit()
     else:
         return jsonify({"message": "Add correct status"}), 405
-
-
-def update_order(order_id, order_made, location, comment):
-    db.cur.execute(
-        """ UPDATE orders SET order_made = (%s) WHERE id = (%s) """,
-        (order_made, order_id))
-    db.conn.commit()
-    db.cur.execute(
-        """ UPDATE orders SET location = (%s) WHERE id = (%s) """,
-        (location, order_id))
-    db.conn.commit()
-    db.cur.execute(
-        """ UPDATE orders SET comment = (%s) WHERE id = (%s) """,
-        (comment, order_id))
-    db.conn.commit()
 
 
 """..........................These tables will be used for tests.........................."""

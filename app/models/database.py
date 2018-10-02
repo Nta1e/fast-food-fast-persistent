@@ -3,6 +3,7 @@ from psycopg2.extras import RealDictCursor
 
 
 class Database(object):
+    '''This class handles the connection to the database'''
 
     def __init__(self, app=None):
         self.app = app

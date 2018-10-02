@@ -23,13 +23,13 @@ def make_order(made_by):
         return jsonify({"error": "Required field/s Missing"}), 400
     item = get_menu_item(given_data["order_made"])
     if item is None:
-        return jsonify(msg='Order is not available on the menu!'), 400
+        return jsonify(msg='item is not available on the menu!'), 400
     else:
         meal_id = get_meal_id(given_data["order_made"])
         new_order = Orders(
             given_data["user_id"],
             meal_id,
-            given_data["order_made"],
+            given_data["order_made"].lower(),
             given_data["location"],
             given_data["comment"],
             given_data["made_by"]

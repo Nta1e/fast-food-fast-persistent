@@ -32,6 +32,7 @@ def login():
 @admin.route("/users", methods=['GET'])
 @admin_required
 def get_users():
+    '''This route returns all the users in the database'''
     all_users = get_all_users()
     return jsonify({"users": all_users}), 200
 

@@ -21,7 +21,7 @@ def add_meal_option():
     if not given_data["price"]:
         return jsonify({"Error": "Required field/s missing"}), 400
     new_meal = Menu(
-        given_data["menu_item"],
+        given_data["menu_item"].lower(),
         given_data["price"]
     )
     entire_menu = get_menu()
