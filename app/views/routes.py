@@ -109,17 +109,21 @@ def get_all_orders():
 @admin_required
 def get_one_order(order_id):
     '''This endpoint returns one order'''
+    if get_order_by_id(order_id) is None:
+        return jsonify({"error": "Order not found!"}), 404
     one_order = get_order_by_id(order_id)
     return jsonify({"order": one_order}), 200
 
 
-@admin.route("/orders/<int:order_id>/", methods=['PUT', 'GET'])
+@admin.route("/orders/<int:order_id>", methods=['PUT', 'GET'])
 @admin_required
 def update_status(order_id):
     '''This route handles updating of an order status'''
     if get_order_by_id(order_id) is None:
         return jsonify({"error": "Order not found!"}), 404
-
+    status_list = ["Processing", "Cancelled", "Complete"]
     status = request.json.get("Status")
+    if status not in status_list:
+        return jsonify({"error": "Add correct status"}), 405
     insert_response(status, order_id)
     return jsonify({"current_status": status}, {"order": get_order_by_id(order_id)}), 200

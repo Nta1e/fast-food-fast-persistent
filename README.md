@@ -23,3 +23,37 @@ Fast-Food-Fast is a food delivery service app for a restaurant.
 | *GET* | ```/api/v2/admin/orders/<order_id>``` | _Get one order_|
 | *PUT* | ```/api/v2/admin/orders/<order_id>``` | _Update order status_|
 
+## BUILT WITH
+
+* Flask - Python Framework used
+
+## SETTING UP APPLICATION
+1. Install postgresql
+
+2. Create a folder Fast-food-fast
+
+    Clone repository to the folder
+
+    **```git clone https://github.com/NtaleShadik/Fast-food-fast-c3.git```**
+
+3. Create a virtual environment that you are going to use while running the application locally
+
+    **```$ python3 -m venv env```**
+
+    **```$ source  env/bin/activate```**
+
+4. Install all project dependencies using
+
+    **```pip3 install -r requirements.txt```**
+
+5. Tweak the ```database.py``` file in the models folder to suit your connection credentials
+
+6. Run the appliction from the root of your folder using
+
+    **```python3 run.py```**
+
+## Author
+
+*Ntale Shadik*
+
+
