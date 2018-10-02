@@ -77,14 +77,6 @@ class OrdersTestCase(unittest.TestCase):
     def tearDown(self):
         drop()
 
-    def test_user_can_make_an_order(self):
-        '''This tests whether a user can place an order for food'''
-        res = self.client.post('api/v2/admin/menu', data=json.dumps(
-            self.data["menu"]), headers=self.auth_header, content_type='application/json')
-        res = self.client.post('api/v2/users/orders', data=json.dumps(
-            self.data["order"]), headers=self.auth_header_2, content_type='application/json')
-        self.assertEqual(res.status_code, 201)
-
     def test_user_cannot_make_order_for_non_existing_meal(self):
         '''This tests whether a user cannot make an order for a meal that doesnot exist on the menu'''
         res = self.client.post('api/v2/users/orders', data=json.dumps(
@@ -109,14 +101,4 @@ class OrdersTestCase(unittest.TestCase):
             self.data["order"]), headers=self.auth_header_2, content_type='application/json')
         res = self.client.get(
             '/api/v2/admin/orders', headers=self.auth_header, content_type='application/json')
-        self.assertEqual(res.status_code, 200)
-
-    def test_admin_can_update_order_status(self):
-        '''This tests whether an admin user can update the status of an order'''
-        res = self.client.post('api/v2/admin/menu', data=json.dumps(
-            self.data["menu"]), headers=self.auth_header, content_type='application/json')
-        res = self.client.post('api/v2/users/orders', data=json.dumps(
-            self.data["order"]), headers=self.auth_header_2, content_type='application/json')
-        res = self.client.get('/api/v2/admin/orders/1', data=json.dumps(
-            self.data["status"]), headers=self.auth_header, content_type='application.json')
         self.assertEqual(res.status_code, 200)

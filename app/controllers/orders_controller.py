@@ -29,7 +29,7 @@ def make_order(made_by):
         new_order = Orders(
             given_data["user_id"],
             meal_id,
-            given_data["order_made"].lower(),
+            given_data["order_made"],
             given_data["location"],
             given_data["comment"],
             given_data["made_by"]

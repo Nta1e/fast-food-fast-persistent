@@ -34,7 +34,7 @@ def register_user():
         return jsonify({"error": "Password too short!"}), 400
 
     new_user = Users(
-        given_data["username"].lower(),
+        given_data["username"],
         given_data["email"],
         generate_password_hash(given_data["password"], method='sha256'),
         given_data["role"]
