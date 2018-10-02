@@ -64,16 +64,16 @@ def delete_meal(meal_id):
 @admin.route("/menu", methods=['GET'])
 @admin_required
 def view_menu():
-    menu = get_menu()
-    return jsonify({"menu": menu}), 200
+    admin_menu = get_menu()
+    return jsonify({"menu": admin_menu}), 200
 
 
 @users.route("/menu", methods=['GET'])
 @jwt_required
 def see_menu():
     """This endpoint handles the viewing of the available menu by the user"""
-    menu = get_menu()
-    return jsonify({"menu": menu}), 200
+    user_menu = get_menu()
+    return jsonify({"menu": user_menu}), 200
 
 
 @users.route("/orders", methods=['POST'])
