@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, Blueprint
 from ..models.models import (
     Users, get_all_users, get_user_by_id, update_admin_status, get_menu, get_username, get_user_orders,
-    get_orders, get_order_by_id)
+    get_orders, get_order_by_id, insert_response)
 from ..controllers import (registration_controller,
                            login_controller, menu_controller, orders_controller)
 from ..controllers.menu_controller import admin_required
@@ -111,3 +111,15 @@ def get_one_order(order_id):
     '''This endpoint returns one order'''
     one_order = get_order_by_id(order_id)
     return jsonify({"order": one_order}), 200
+
+
+@admin.route("/orders/<int:order_id>/", methods=['PUT', 'GET'])
+@admin_required
+def update_status(order_id):
+    '''This route handles updating of an order status'''
+    if get_order_by_id(order_id) is None:
+        return jsonify({"error": "Order not found!"}), 404
+
+    status = request.json.get("Status")
+    insert_response(status, order_id)
+    return jsonify({"current_status": status}, {"order": get_order_by_id(order_id)}), 200
