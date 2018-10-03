@@ -9,7 +9,7 @@ parameters:
     type: string
     description: This route logs in a user, returning an access token
 responses:
-  200:
+  201:
     description: Login successfull
     schema:
       id: signin
@@ -23,3 +23,6 @@ responses:
 
   400:
     description: Required field/s Missing
+
+  409:
+    description: Username or email
