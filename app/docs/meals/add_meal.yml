@@ -1,0 +1,38 @@
+This demos adding a meal option to the menu
+---
+tags:
+ - Admin
+parameters:
+  - name: Authorization
+    in: header
+    type: string
+    description: JWT token authorization
+    required: true
+  - name: body
+    in: body
+    description: Details of meal option
+    required: true
+security:
+  - JWT:
+      name: Authorization
+      in: header
+      type: string
+      description: Pass in jwt token. i.e Bearer <jwt>
+      required: true
+responses:
+  201:
+    description: Meal added successfully!
+    schema:
+      id: menu
+      properties:
+        menu_item:
+          type: string
+          default: pilawo
+        price:
+          type: integer
+          default: 2000
+  400:
+    description: Required field/s Missing
+
+  409:
+    description: Meal already exists on the Menu

@@ -1,0 +1,24 @@
+This demos getting all users
+---
+tags:
+ - Admin
+parameters:
+  - name: Authorization
+    in: header
+    type: string
+    description: JWT token authorization
+    required: true
+security:
+  - JWT:
+      description: Pass in jwt token. i.e Bearer <jwt>
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header
+      bearerFormat: JWT
+responses:
+  200:
+    description: Registration successfull
+
+  401:
+    description: Token missing!

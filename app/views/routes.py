@@ -6,6 +6,7 @@ from ..controllers import (registration_controller,
                            login_controller, menu_controller, orders_controller)
 from ..controllers.menu_controller import admin_required
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from flasgger import swag_from
 JSON_MIME_TYPE = 'application/json'
 
 admin = Blueprint("admin_route", __name__)
@@ -14,6 +15,7 @@ auth = Blueprint("authentication", __name__)
 
 
 @auth.route("/signup", methods=['POST'])
+@swag_from('../docs/signup.yml')
 def signup():
     """This route handles registration of a new user"""
     if request.content_type != JSON_MIME_TYPE:
@@ -22,6 +24,7 @@ def signup():
 
 
 @auth.route("/login", methods=['POST'])
+@swag_from('../docs/login.yml')
 def login():
     """This route handles user login"""
     if request.content_type != JSON_MIME_TYPE:
@@ -30,6 +33,7 @@ def login():
 
 
 @admin.route("/users", methods=['GET'])
+@swag_from('../docs/users.yml')
 @admin_required
 def get_users():
     '''This route returns all the users in the database'''
@@ -38,6 +42,7 @@ def get_users():
 
 
 @admin.route("/menu", methods=['POST'])
+@swag_from('../docs/meals/add_meal.yml')
 @admin_required
 def add_meal():
     '''This route handles adding of a meal option to the menu'''
@@ -47,6 +52,7 @@ def add_meal():
 
 
 @admin.route("/menu/<int:meal_id>", methods=['PUT'])
+@swag_from('../docs/meals/edit_menu.yml')
 @admin_required
 def edit_meal(meal_id):
     '''This route handles the editing of a meal option'''
@@ -56,6 +62,7 @@ def edit_meal(meal_id):
 
 
 @admin.route("/menu/<int:meal_id>/delete", methods=['DELETE'])
+@swag_from('../docs/meals/delete_meal.yml')
 @admin_required
 def delete_meal(meal_id):
     '''This route handles the deleting of a meal option'''
@@ -63,6 +70,7 @@ def delete_meal(meal_id):
 
 
 @admin.route("/menu", methods=['GET'])
+@swag_from('../docs/meals/admin_view_menu.yml')
 @admin_required
 def view_menu():
     admin_menu = get_menu()
@@ -71,6 +79,7 @@ def view_menu():
 
 @users.route("/menu", methods=['GET'])
 @jwt_required
+@swag_from('../docs/user_view_menu.yml')
 def see_menu():
     """This endpoint handles the viewing of the available menu by the user"""
     user_menu = get_menu()
@@ -79,6 +88,7 @@ def see_menu():
 
 @users.route("/orders", methods=['POST'])
 @jwt_required
+@swag_from('../docs/orders/add_order.yml')
 def place_order():
     '''This endpoint handles the placing of an order by the user'''
     if request.content_type != JSON_MIME_TYPE:
@@ -90,6 +100,7 @@ def place_order():
 
 @users.route("/orders", methods=['GET'])
 @jwt_required
+@swag_from('../docs/orders/view_orders.yml')
 def view_orders():
     '''This endpoint handles the viewing of user orders'''
     user_id = get_jwt_identity()
@@ -99,6 +110,7 @@ def view_orders():
 
 
 @admin.route("/orders", methods=['GET'])
+@swag_from('../docs/orders/view_all_orders.yml')
 @admin_required
 def get_all_orders():
     '''This endpoint returns all the orders made'''
@@ -107,6 +119,7 @@ def get_all_orders():
 
 
 @admin.route("/orders/<int:order_id>", methods=['GET'])
+@swag_from('../docs/orders/view_one.yml')
 @admin_required
 def get_one_order(order_id):
     '''This endpoint returns one order'''
@@ -116,14 +129,15 @@ def get_one_order(order_id):
     return jsonify({"order": one_order}), 200
 
 
-@admin.route("/orders/<int:order_id>", methods=['PUT', 'GET'])
+@admin.route("/orders/<int:order_id>", methods=['PUT'])
+@swag_from('../docs/orders/update_status.yml')
 @admin_required
 def update_status(order_id):
     '''This route handles updating of an order status'''
     if get_order_by_id(order_id) is None:
         return jsonify({"error": "Order not found!"}), 404
     status_list = ["Processing", "Cancelled", "Complete"]
-    status = request.json.get("Status")
+    status = request.json.get("status")
     if status not in status_list:
         return jsonify({"error": "Add correct status"}), 405
     insert_response(status, order_id)

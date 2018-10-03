@@ -15,6 +15,18 @@ def register_user():
         "confirm_password": data.get("confirm_password"),
         "role": data.get("role")
     }
+    if not all(
+        [data.get('username'),
+         data.get('email'),
+         data.get('password'),
+         data.get('confirm_password')]
+    ):
+        return jsonify({'error': 'Missing field/s'}), 400
+    try:
+        int(given_data["username"])
+        return jsonify({"error": "username cannot be an integer"}), 400
+    except:
+        pass
     if given_data["username"] is not None and given_data["username"].strip() == "":
         return jsonify({"error": "Required field/s Missing"}), 400
     if given_data["email"] is not None and given_data["email"].strip() == "":
@@ -33,17 +45,19 @@ def register_user():
     if len(given_data["password"]) < 5:
         return jsonify({"error": "Password too short!"}), 400
 
-    new_user = Users(
-        given_data["username"],
-        given_data["email"],
-        generate_password_hash(given_data["password"], method='sha256'),
-        given_data["role"]
-    )
-    all_users = get_all_users()
-    for user in all_users:
-        if user["username"] == new_user.username:
-            return jsonify({"error": "Username already taken!"}), 409
-        elif user["email"] == new_user.email:
-            return jsonify({"error": "Email already exists!"}), 409
-    new_user.create_user()
-    return jsonify({"message": "Registration Successfull"}), 201
+    else:
+
+        new_user = Users(
+            given_data["username"],
+            given_data["email"],
+            generate_password_hash(given_data["password"], method='sha256'),
+            given_data["role"]
+        )
+        all_users = get_all_users()
+        for user in all_users:
+            if user["username"] == new_user.username:
+                return jsonify({"error": "Username already taken!"}), 409
+            elif user["email"] == new_user.email:
+                return jsonify({"error": "Email already exists!"}), 409
+        new_user.create_user()
+        return jsonify({"message": "Registration Successfull"}), 201

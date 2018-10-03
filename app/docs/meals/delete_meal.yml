@@ -1,0 +1,38 @@
+This demos deleting a meal option on the menu
+---
+tags:
+ - Admin
+parameters:
+  - name: Authorization
+    in: header
+    type: string
+    description: JWT token authorization
+    required: true
+  - name: meal_id
+    in: path
+    description: ID of meal to delete
+security:
+  - JWT:
+      name: Authorization
+      in: header
+      type: string
+      description: Pass in jwt token. i.e Bearer <jwt>
+      required: true
+responses:
+  200:
+    description: Meal successfully deleted!
+    schema:
+      id: menu
+      properties:
+        menu_item:
+          type: string
+          default: pilawo
+        price:
+          type: integer
+          default: 2000
+
+  401:
+    description: token misssing!
+
+  404:
+    description: meal not found

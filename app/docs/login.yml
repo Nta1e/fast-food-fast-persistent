@@ -1,0 +1,25 @@
+This demos user login
+---
+tags:
+ - User Authentication
+parameters:
+  - in: body
+    name: body
+    required: true
+    type: string
+    description: This route logs in a user, returning an access token
+responses:
+  200:
+    description: Login successfull
+    schema:
+      id: signin
+      properties:
+        username:
+          type: string
+          default: Grey
+        password:
+          type: string
+          default: pie123
+
+  400:
+    description: Required field/s Missing

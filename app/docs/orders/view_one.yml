@@ -1,0 +1,35 @@
+This demos admin viewing a specific order
+---
+tags:
+ - Admin
+paths:
+  /api/v2/admin/orders/{order_id}:
+parameters:
+  - name: Authorization
+    in: header
+    type: string
+    description: JWT token authorization
+    required: true
+  - name: order_id
+    in: path
+    description: ID of order to view
+    required: true
+    type: integer
+    format: int64
+security:
+  - JWT:
+      description: Pass in jwt token. i.e Bearer <jwt>
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header
+      bearerFormat: JWT
+responses:
+  200:
+    description: success
+
+  401:
+    description: Token missing!
+
+  404:
+    description: order_not found

@@ -1,0 +1,41 @@
+This demos placing of an order
+---
+tags:
+ - Users
+parameters:
+  - name: Authorization
+    in: header
+    type: string
+    description: JWT token authorization
+    required: true
+  - name: body
+    in: body
+    description: Details of the order
+    required: true
+security:
+  - JWT:
+      name: Authorization
+      in: header
+      type: string
+      description: pass in token
+      required: true
+responses:
+  201:
+    description: order created!
+    schema:
+      id: orders
+      properties:
+        order:
+          type: string
+          default: pilawo
+        location:
+          type: string
+          default: Ntinda
+        comment:
+          type: string
+          default: In plenty
+  400:
+    description: Required field/s Missing
+
+  401:
+    description: Token missing!

@@ -1,0 +1,57 @@
+This demos adding a meal option to the menu
+---
+tags:
+ - Admin
+parameters:
+  - in: body
+    name: body
+    required: true
+    type: string
+    description: This route allows an admin user to add meal options onto the menu
+responses:
+  201:
+    description: Meal added successfully!
+    schema:
+      id: menu
+      properties:
+        menu_item:
+          type: string
+          default: pilawo
+        price:
+          type: integer
+          default: 2000
+
+  400:
+    description: Required field/s Missing
+
+  409:
+    descriptiom: Meal already exists on the Menu
+
+This demos editing a meal option on the menu
+---
+tags:
+ - Admin
+parameters:
+  - in: body
+    name: body
+    required: true
+    type: string
+    description: This route allows an admin user to edit meal options on the menu
+responses:
+  201:
+    description: Menu updated!
+    schema:
+      id: menu
+      properties:
+        menu_item:
+          type: string
+          default: fish
+        price:
+          type: integer
+          default: 5000
+
+  400:
+    description: Required field/s Missing
+
+  404:
+    descriptiom: Meal not found!

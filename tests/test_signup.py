@@ -55,7 +55,7 @@ class RegistrationTestCase(unittest.TestCase):
                 "confirm_password": "pie123"
             },
             "short": {
-                "username": "Pie123",
+                "username": "Pie",
                 "email": "pie@123.com",
                 "password": "pie",
                 "confirm_password": "pie"

@@ -1,0 +1,39 @@
+This demos admin updating status of an order
+---
+tags:
+ - Admin
+parameters:
+  - name: Authorization
+    in: header
+    type: string
+    description: JWT token authorization
+    required: true
+  - name: body
+    in: body
+    description: Order status
+    required: true
+  - name: order_id
+    in: path
+    description: ID of order to update
+security:
+  - JWT:
+      name: Authorization
+      in: header
+      type: string
+      description: Pass in jwt token. i.e Bearer <jwt>
+      required: true
+responses:
+  201:
+    description: status updated successfully!
+    schema:
+      id: status
+      properties:
+        status:
+          type: string
+          default: Processing
+  400:
+    description: Add correct status
+  401:
+    description: token misssing!
+  404:
+    description: Order not found!
