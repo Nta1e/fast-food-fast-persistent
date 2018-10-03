@@ -22,3 +22,4 @@ responses:
 
   401:
     description: Token missing!
+

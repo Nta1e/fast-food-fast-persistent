@@ -36,6 +36,7 @@ responses:
           default: 2000
   400:
     description: Required fields missing
+
   401:
     description: token misssing!
   404:

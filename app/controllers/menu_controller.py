@@ -9,6 +9,7 @@ from ..models.models import (
 
 def add_meal_option():
     """This function handles adding of a meal option onto the menu"""
+
     data = request.json
     given_data = {
         "menu_item": data.get("menu_item"),

@@ -8,6 +8,7 @@ import json
 
 def signin():
     '''This function controlls user login'''
+
     data = request.json
     given_data = {
         "username": data.get("username"),

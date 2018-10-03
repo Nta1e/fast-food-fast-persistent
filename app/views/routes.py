@@ -135,7 +135,7 @@ def get_one_order(order_id):
 def update_status(order_id):
     '''This route handles updating of an order status'''
     if get_order_by_id(order_id) is None:
-        return jsonify({"error": "Order not found!"}), 404
+        return jsonify({"error": "order not found!"}), 404
     status_list = ["Processing", "Cancelled", "Complete"]
     status = request.json.get("status")
     if status not in status_list:

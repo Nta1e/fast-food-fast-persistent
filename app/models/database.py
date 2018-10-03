@@ -12,7 +12,7 @@ class Database(object):
 
     def init_app(self, app):
         self.conn = psycopg2.connect(
-            "dbname='fastfoodfast' user='grey' host='127.0.0.1' password='Grey'")
+            "dbname='fastfoodfast'  user='grey' host='127.0.0.1' password='Grey'")
         self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
     def query(self, query):

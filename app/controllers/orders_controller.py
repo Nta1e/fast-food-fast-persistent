@@ -5,7 +5,6 @@ from ..models.models import Orders, get_menu_item, get_meal_id
 
 def make_order(made_by):
     """This function handles the creation of a new order"""
-
     data = request.json
     user_id = get_jwt_identity()
     given_data = {

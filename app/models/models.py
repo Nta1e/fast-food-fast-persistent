@@ -57,7 +57,7 @@ def get_username(user_id):
 
 
 def get_admin_status():
-    db.cur.execute("""SELECT role FROM users""")
+    db.cur.execute(""" SELECT role FROM users""")
     db.conn.commit()
     admin_status = db.cur.fetchall()
     return admin_status

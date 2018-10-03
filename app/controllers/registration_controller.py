@@ -7,6 +7,7 @@ from ..models.models import Users, get_all_users
 
 def register_user():
     """This method handles the registration of a new user"""
+
     data = request.json
     given_data = {
         "username": data.get("username"),
