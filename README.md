@@ -2,8 +2,11 @@
 [![Build Status](https://travis-ci.org/NtaleShadik/fast-food-fast-c3.svg?branch=develop)](https://travis-ci.org/NtaleShadik/fast-food-fast-c3)
 [![Coverage Status](https://coveralls.io/repos/github/NtaleShadik/fast-food-fast-c3/badge.svg?branch=develop)](https://coveralls.io/github/NtaleShadik/fast-food-fast-c3?branch=develop)
 ![Swagger Validator](https://img.shields.io/swagger/valid/2.0/https/raw.githubusercontent.com/OAI/OpenAPI-Specification/master/examples/v2.0/json/petstore-expanded.json.svg)
+
 [![GitHub last commit](https://img.shields.io/github/last-commit/NtaleShadik/fast-food-fast-c3/develop.svg)]
+
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)]
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/7646572a208b37bf453d/maintainability)](https://codeclimate.com/github/NtaleShadik/fast-food-fast-c3/maintainability)
 ## Description
 Fast-Food-Fast is a food delivery service app for a restaurant.
