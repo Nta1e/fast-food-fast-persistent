@@ -7,7 +7,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/7646572a208b37bf453d/maintainability)](https://codeclimate.com/github/NtaleShadik/fast-food-fast-c3/maintainability)
 ## Description
 Fast-Food-Fast is a food delivery service app for a restaurant.
-The documentation of the API can be found [here](https://ntale-v2-fff.herokuapp.com)
+The documentation of the API can be found [here](https://ntale--v2.herokuapp.com)
 
 ## The project has the following routes
 
