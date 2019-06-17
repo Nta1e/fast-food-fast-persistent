@@ -1,0 +1,28 @@
+version: '2.2'
+services:
+  db:
+    restart: always
+    image: postgres:10.1
+    env_file:
+      - ./dev.env
+    volumes:
+      - ./fff-db:/var/lib/postgresql/data
+    ports:
+      - '54320:5432'
+    expose:
+      - '5432'
+    container_name: fff-database
+  app:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
+    expose:
+      - '5000'
+    volumes:
+      - ${PWD}:/fff-api
+    depends_on:
+      - db
+    container_name: fff-api

@@ -1,4 +1,4 @@
-# Fast-Food-Fast API
+[![Build Status](https://travis-ci.org/Nta1e/fast-food-fast-persistent.svg?branch=develop)](https://travis-ci.org/Nta1e/fast-food-fast-persistent)
 ![Swagger Validator](https://img.shields.io/swagger/valid/2.0/https/raw.githubusercontent.com/OAI/OpenAPI-Specification/master/examples/v2.0/json/petstore-expanded.json.svg)
 [![GitHub last commit](https://img.shields.io/github/last-commit/NtaleShadik/fast-food-fast-c3/develop.svg)](https://shields.io/#/examples/other)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://shields.io/#/examples/other)
@@ -34,7 +34,7 @@ The documentation of the API can be found [here](https://ntale--v2.herokuapp.com
 
     Clone repository to the folder
 
-    **```git clone https://github.com/NtaleShadik/Fast-food-fast-c3.git```**
+    **```git clone https://github.com/NtaleShadik/Fast-food-fast-persistent.git```**
 
 3. Create a virtual environment that you are going to use while running the application locally
 

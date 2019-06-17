@@ -1,3 +1,5 @@
+#!usr/local/bin/python3
+
 from flask import redirect
 from app import app
 from schema import main

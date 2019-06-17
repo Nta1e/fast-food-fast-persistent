@@ -1,7 +1,8 @@
-import unittest
 import json
-from app.models.models import drop, initialize
+import unittest
+
 from app import app
+from app.models.models import drop, initialize
 
 
 class RegistrationTestCase(unittest.TestCase):
@@ -16,7 +17,7 @@ class RegistrationTestCase(unittest.TestCase):
                 "email": "Grey@admin.com",
                 "password": "Sean123",
                 "confirm_password": "Sean123",
-                "role": "admin"
+                "admin": True
             },
             "user": {
                 "username": "West",

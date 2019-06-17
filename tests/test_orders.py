@@ -1,7 +1,8 @@
-import unittest
 import json
-from app.models.models import drop, initialize
+import unittest
+
 from app import app
+from app.models.models import drop, initialize
 
 
 class OrdersTestCase(unittest.TestCase):
@@ -16,7 +17,7 @@ class OrdersTestCase(unittest.TestCase):
                 "email": "Ntale@andela.com",
                 "password": "*****",
                 "confirm_password": "*****",
-                "role": "admin"
+                "admin": True
             },
             "login1": {
                 "username": "Ntale",
@@ -80,25 +81,30 @@ class OrdersTestCase(unittest.TestCase):
     def test_user_cannot_make_order_for_non_existing_meal(self):
         '''This tests whether a user cannot make an order for a meal that doesnot exist on the menu'''
         res = self.client.post('api/v2/users/orders', data=json.dumps(
-            self.data["wrong_order"]), headers=self.auth_header_2, content_type='application/json')
+            self.data["wrong_order"]), headers=self.auth_header_2,
+            content_type='application/json')
         self.assertEqual(res.status_code, 400)
 
     def test_user_can_get_his_orders(self):
         '''This tests whether the user can get all the orders made by him'''
         res = self.client.get(
-            'api/v2/users/orders', headers=self.auth_header_2, content_type='application/json')
+            'api/v2/users/orders', headers=self.auth_header_2,
+            content_type='application/json')
         self.assertEqual(res.status_code, 200)
 
     def admin_can_get_all_orders(self):
         '''This tests whether the admin can get all the orders made'''
         res = self.client.get(
-            '/api/v2/admin/orders', headers=self.auth_header, content_type='application/json')
+            '/api/v2/admin/orders', headers=self.auth_header,
+            content_type='application/json')
         self.assertEqual(res.status_code, 200)
 
     def test_admin_can_get_order_by_id(self):
         '''This tests whether the admin can get an order by id'''
         res = self.client.post('api/v2/users/orders', data=json.dumps(
-            self.data["order"]), headers=self.auth_header_2, content_type='application/json')
+            self.data["order"]), headers=self.auth_header_2,
+            content_type='application/json')
         res = self.client.get(
-            '/api/v2/admin/orders', headers=self.auth_header, content_type='application/json')
+            '/api/v2/admin/orders', headers=self.auth_header,
+            content_type='application/json')
         self.assertEqual(res.status_code, 200)

@@ -1,9 +1,12 @@
-from flask import jsonify
-import psycopg2
-from psycopg2.extras import RealDictCursor
 import datetime
-from .database import Database
+
+import psycopg2
+from flask import jsonify
+from psycopg2.extras import RealDictCursor
+
 import app
+
+from .database import Database
 
 db = Database(app)
 
@@ -11,68 +14,72 @@ db = Database(app)
 class Users:
     '''This class handles the storing of user credentials in the database'''
 
-    def __init__(self, username, email, password, role):
+    def __init__(self,
+                 username=None,
+                 email=None,
+                 password=None,
+                 admin=None):
         self.username = username
         self.email = email
         self.password = password
-        self.role = role
+        self.admin = admin
 
     def create_user(self):
-        db.cur.execute("""INSERT INTO users( username, email, password, role)
+        db.cur.execute("""INSERT INTO users( username, email, password, admin)
                              VALUES(%s,%s,%s,%s)""",
                        (
                            self.username,
                            self.email,
                            self.password,
-                           self.role
+                           self.admin
                        )
                        )
         db.conn.commit()
 
 
-def get_all_users():
-    db.cur.execute("""SELECT id, username, email, role FROM users""")
-    db.conn.commit()
-    all_users = db.cur.fetchall()
-    return all_users
+    def get_all_users(self):
+        db.cur.execute("""SELECT id, username, email, admin FROM users""")
+        db.conn.commit()
+        all_users = db.cur.fetchall()
+        return all_users
 
 
-def get_user(user):
-    db.cur.execute("""SELECT * FROM users WHERE username = (%s)""", (user,))
-    db.conn.commit()
-    user = db.cur.fetchone()
-    return user
+    def get_user(self, user):
+        db.cur.execute("""SELECT * FROM users WHERE username = (%s)""", (user,))
+        db.conn.commit()
+        user = db.cur.fetchone()
+        return user
 
 
-def get_user_by_id(user_id):
-    db.cur.execute("""SELECT * FROM users WHERE id = (%s)""", (user_id,))
-    db.conn.commit()
-    user = db.cur.fetchone()
-    return user
+    def get_user_by_id(self, user_id):
+        db.cur.execute("""SELECT * FROM users WHERE id = (%s)""", (user_id,))
+        db.conn.commit()
+        user = db.cur.fetchone()
+        return user
 
 
-def get_username(user_id):
-    user_dict = get_user_by_id(user_id)
-    return user_dict["username"]
+    def get_username(self, user_id):
+        user_dict = self.get_user_by_id(user_id)
+        return user_dict["username"]
 
 
-def get_admin_status():
-    db.cur.execute(""" SELECT role FROM users""")
-    db.conn.commit()
-    admin_status = db.cur.fetchall()
-    return admin_status
+    def get_admin_status(self):
+        db.cur.execute(""" SELECT role FROM users""")
+        db.conn.commit()
+        admin_status = db.cur.fetchall()
+        return admin_status
 
 
-def update_admin_status(user_id):
-    db.cur.execute(
-        """ UPDATE users SET  role= 'admin' WHERE id = (%s) """, (user_id,))
-    db.conn.commit()
+    def update_admin_status(self, user_id):
+        db.cur.execute(
+            """ UPDATE users SET  admin= True WHERE id = (%s) """, (user_id,))
+        db.conn.commit()
 
 
 class Menu:
     '''This class handles the storing of menu items into the database'''
 
-    def __init__(self, menu_item, price):
+    def __init__(self, menu_item=None, price=None):
         self.menu_item = menu_item
         self.price = price
 
@@ -87,59 +94,69 @@ class Menu:
         db.conn.commit()
 
 
-def get_menu():
-    db.cur.execute("""SELECT * FROM menu""")
-    db.conn.commit()
-    menu_list = db.cur.fetchall()
-    return menu_list
+    def get_menu(self):
+        db.cur.execute("""SELECT * FROM menu""")
+        db.conn.commit()
+        menu_list = db.cur.fetchall()
+        return menu_list
 
 
-def update_menu(meal_id, menu_item, price):
-    db.cur.execute(
-        """ UPDATE menu SET menu_item = (%s) WHERE meal_id = (%s) """,
-        (menu_item, meal_id))
-    db.conn.commit()
-    db.cur.execute(
-        """ UPDATE menu SET price = (%s) WHERE meal_id = (%s) """, (price, meal_id))
-    db.conn.commit()
+    def update_menu(self, meal_id, menu_item, price):
+        db.cur.execute(
+            """ UPDATE menu SET menu_item = (%s) WHERE meal_id = (%s) """,
+            (menu_item, meal_id))
+        db.conn.commit()
+        db.cur.execute(
+            """ UPDATE menu SET price = (%s) WHERE meal_id = (%s) """, (price, meal_id))
+        db.conn.commit()
 
 
-def get_meal_by_id(meal_id):
-    db.cur.execute("""SELECT * FROM menu WHERE meal_id = (%s)""", (meal_id,))
-    db.conn.commit()
-    one_meal = db.cur.fetchone()
-    return one_meal
+    def get_meal_by_id(self, meal_id):
+        db.cur.execute("""SELECT * FROM menu WHERE meal_id = (%s)""", (meal_id,))
+        db.conn.commit()
+        one_meal = db.cur.fetchone()
+        return one_meal
 
 
-def get_menu_item(item):
-    db.cur.execute("""SELECT * FROM menu WHERE menu_item = (%s)""", (item,))
-    db.conn.commit()
-    item = db.cur.fetchone()
-    return item
+    def get_menu_item(self, item):
+        db.cur.execute("""SELECT * FROM menu WHERE menu_item = (%s)""", (item,))
+        db.conn.commit()
+        item = db.cur.fetchone()
+        return item
 
 
-def get_meal(item):
-    menu_item = get_menu_item(item)
-    return menu_item["menu_item"]
+    def get_meal(self, item):
+        menu_item = self.get_menu_item(item)
+        if menu_item is not None:   
+            return menu_item["menu_item"]
+        return
 
 
-def delete_meal(meal_id):
-    db.cur.execute(
-        "DELETE FROM menu WHERE meal_id = (%s)", (meal_id,))
-    db.conn.commit()
-    db.cur.execute("DELETE FROM menu WHERE meal_id = (%s)", (meal_id,))
-    db.conn.commit()
+    def delete_meal(self, meal_id):
+        db.cur.execute(
+            "DELETE FROM menu WHERE meal_id = (%s)", (meal_id,))
+        db.conn.commit()
+        db.cur.execute("DELETE FROM menu WHERE meal_id = (%s)", (meal_id,))
+        db.conn.commit()
 
 
-def get_meal_id(order):
-    meal = get_menu_item(order)
-    return meal["meal_id"]
+    def get_meal_id(self, order):
+        meal = self.get_menu_item(order)
+        if meal is not None:
+            return meal["meal_id"]
+        return
 
 
 class Orders:
     '''This class handles the storing of user orders into the database'''
 
-    def __init__(self, user_id, menu_id, order_made, location, comment, made_by):
+    def __init__(self,
+                user_id=None,
+                menu_id=None,
+                order_made=None,
+                location=None,
+                comment=None,
+                made_by=None):
         self.user_id = user_id
         self.menu_id = menu_id
         self.order_made = order_made
@@ -162,47 +179,47 @@ class Orders:
         db.conn.commit()
 
 
-def get_orders():
-    db.cur.execute(
-        """SELECT id, made_by, order_made, location, comment, status, order_date FROM orders""")
-    db.conn.commit()
-    all_orders = db.cur.fetchall()
-    return all_orders
-
-
-def get_order_by_id(order_id):
-    db.cur.execute(
-        """SELECT id, made_by, order_made, location, comment, status, order_date FROM orders WHERE id = (%s)""",
-        (order_id,))
-    db.conn.commit()
-    one_order = db.cur.fetchone()
-    return one_order
-
-
-def get_user_orders(made_by):
-    db.cur.execute(
-        """SELECT id, made_by, order_made, location, comment, status, order_date FROM orders WHERE made_by = (%s)""",
-        (made_by,))
-    db.conn.commit()
-    user_orders = db.cur.fetchall()
-    return user_orders
-
-
-def insert_response(status, order_id):
-    if status == "Processing":
+    def get_orders(self):
         db.cur.execute(
-            """ UPDATE orders SET status = 'Processing' WHERE id = (%s) """, (order_id,))
+            """SELECT id, made_by, order_made, location, comment, status, order_date FROM orders""")
         db.conn.commit()
-    elif status == "Cancelled":
+        all_orders = db.cur.fetchall()
+        return all_orders
+
+
+    def get_order_by_id(self, order_id):
         db.cur.execute(
-            """ UPDATE orders SET status = 'Cancelled' WHERE id = (%s) """, (order_id,))
+            """SELECT id, made_by, order_made, location, comment, status, order_date FROM orders WHERE id = (%s)""",
+            (order_id,))
         db.conn.commit()
-    elif status == "Complete":
+        one_order = db.cur.fetchone()
+        return one_order
+
+
+    def get_user_orders(self, made_by):
         db.cur.execute(
-            """ UPDATE orders SET status = 'Complete' WHERE id = (%s) """, (order_id,))
+            """SELECT id, made_by, order_made, location, comment, status, order_date FROM orders WHERE made_by = (%s)""",
+            (made_by,))
         db.conn.commit()
-    else:
-        return jsonify({"message": "Add correct status"}), 405
+        user_orders = db.cur.fetchall()
+        return user_orders
+
+
+    def insert_response(self, status, order_id):
+        if status == "Processing":
+            db.cur.execute(
+                """ UPDATE orders SET status = 'Processing' WHERE id = (%s) """, (order_id,))
+            db.conn.commit()
+        elif status == "Cancelled":
+            db.cur.execute(
+                """ UPDATE orders SET status = 'Cancelled' WHERE id = (%s) """, (order_id,))
+            db.conn.commit()
+        elif status == "Complete":
+            db.cur.execute(
+                """ UPDATE orders SET status = 'Complete' WHERE id = (%s) """, (order_id,))
+            db.conn.commit()
+        else:
+            return jsonify({"message": "Add correct status"}), 405
 
 
 """..........................These tables will be used for tests.........................."""
@@ -221,7 +238,7 @@ def initialize():
             username VARCHAR(255),
             email VARCHAR(255),
             password VARCHAR(255),
-            role VARCHAR(255)
+            admin BOOLEAN DEFAULT 'false'
             )
             """)
 

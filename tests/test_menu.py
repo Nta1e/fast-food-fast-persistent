@@ -16,7 +16,7 @@ class MenuTestCase(unittest.TestCase):
                 "email": "Ntale@andela.com",
                 "password": "*****",
                 "confirm_password": "*****",
-                "role": "admin"
+                "admin": True
             },
             "login1": {
                 "username": "Ntale",

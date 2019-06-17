@@ -1,4 +1,7 @@
-env
-__pycache__
-.git
+__pycache__/
+.env
+.vscode/
 .coverage
+.pytest_cache
+fff-db/
+dev.env/

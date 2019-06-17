@@ -15,7 +15,7 @@ def main():
             username VARCHAR(255),
             email VARCHAR(255),
             password VARCHAR(255),
-            role VARCHAR(255)
+            admin BOOLEAN DEFAULT 'false'
             )
             """)
 
@@ -45,4 +45,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-print(" ...........................TABLES CREATED .................................")
+print("...........................TABLES CREATED .................................")
